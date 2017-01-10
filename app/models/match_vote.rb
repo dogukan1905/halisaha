@@ -1,0 +1,2 @@
+class MatchVote < ApplicationRecord
+end
