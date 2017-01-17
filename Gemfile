@@ -35,6 +35,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'devise'
+
+gem 'awesome_print', '~> 1.7'
+
 gem "paperclip", "~> 5.0.0"
 
 group :development, :test do

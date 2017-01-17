@@ -1,2 +1,2 @@
-class MatchVote < ApplicationRecord
+class MatchVote < ActiveRecord::Base
 end

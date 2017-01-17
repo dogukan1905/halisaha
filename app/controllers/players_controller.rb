@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  before_action :authenticate_player!, only: [:edit, :update, :destroy]
   def index
   	@players = Player.all
   end
@@ -35,12 +36,8 @@ class PlayersController < ApplicationController
     end
   end
 
-  def destroy
-  	
-  end
-
   private
     def player_params
-      params.require(:player).permit(:username, :firstname, :lastname, :password, :password_confirmation)
+      params.require(:player).permit(:username, :firstname, :lastname, :password, :password_confirmation, :is_active)
     end
 end

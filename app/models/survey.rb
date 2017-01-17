@@ -1,2 +1,2 @@
-class Survey < ApplicationRecord
+class Survey < ActiveRecord::Base
 end

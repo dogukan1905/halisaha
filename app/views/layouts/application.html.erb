@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cmpehalisaha</title>
+    <title>BALTA</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,8 +9,14 @@
   </head>
 
   <body>
-	<%= render "layouts/header" %>
+  <%= render "layouts/header" %>
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, id: "flash_#{name}" %>
+  <% end %>
+
 	<%=yield %>
+  
 	<%= render "layouts/footer" %>
   </body>
 </html>
