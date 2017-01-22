@@ -1,0 +1,5 @@
+<h1>Matches#index</h1>
+<% @matches.each do |match| -%>
+        <%= match.firstname %> <%= match.lastname %>
+    	<%= image_tag match.avatar.url %>
+<% end -%>

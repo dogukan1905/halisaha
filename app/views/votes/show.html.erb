@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Match point:</strong>
+  <%= @vote.match_point %>
+</p>
+
+<p>
+  <strong>Player points:</strong>
+  <%= @vote.player_points %>
+</p>
+
+<p>
+  <strong>Match:</strong>
+  <%= @vote.match %>
+</p>
+
+<p>
+  <strong>Player:</strong>
+  <%= @vote.player %>
+</p>
+
+<%= link_to 'Edit', edit_vote_path(@vote) %> |
+<%= link_to 'Back', votes_path %>

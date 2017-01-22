@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117223553) do
+ActiveRecord::Schema.define(version: 20170122143506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,7 +103,20 @@ ActiveRecord::Schema.define(version: 20170117223553) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer  "match_point"
+    t.json     "player_points"
+    t.integer  "match_id"
+    t.integer  "player_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["match_id"], name: "index_votes_on_match_id", using: :btree
+    t.index ["player_id"], name: "index_votes_on_player_id", using: :btree
+  end
+
   add_foreign_key "comments", "players"
   add_foreign_key "goals", "players"
   add_foreign_key "matches", "goals", column: "best_goal_id"
+  add_foreign_key "votes", "matches"
+  add_foreign_key "votes", "players"
 end
