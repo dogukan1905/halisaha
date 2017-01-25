@@ -1,0 +1,15 @@
+<% @players.each do |player| %>  
+	<div>
+	    <%= label_tag :id, player.id.to_s %>        
+	    <%= hidden_field_tag :id, :value => player.id.to_s %>        
+	    <br>
+	    <%= label_tag :attack, "Attack" %>
+	    <%= text_field_tag :attack, nil, :class => 'players vote_input', :data => {id: player.id.to_s, type: 'attack'} %>
+	    <br>
+	    <%= label_tag :defense, "Defense" %>
+	    <%= text_field_tag :defense, nil, :class => 'players vote_input', :data => {id: player.id.to_s, type: 'defense'} %>
+	    <br>
+	    <%= label_tag :passion, "Passion" %>
+	    <%= text_field_tag :passion, nil, :class => 'players vote_input', :data => {id: player.id.to_s, type: 'passion'}%>
+	</div>
+<% end %>

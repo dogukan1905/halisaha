@@ -7,7 +7,8 @@ class Player < ActiveRecord::Base
   has_many :teams, through: :playbooks
   has_many :matches
   has_many :goals
-  has_many :votes
+  has_many :votings
+  has_many :votes, through: :votings
   has_many :comments
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/missing.png"

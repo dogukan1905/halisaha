@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def current_match
-    @current_match = Match.last  
+    @current_match = Match.last
   end
 
   def configure_permitted_parameters

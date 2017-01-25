@@ -1,35 +1,81 @@
-<%= form_for(vote) do |f| %>
-  <% if vote.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
-
-      <ul>
-      <% vote.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= label_tag :match_point %>
+    <%= number_field_tag :match_point %>
+  </div>
+  
+  <%= render 'player_fields'%>
 
   <div class="field">
-    <%= f.label :match_point %>
-    <%= f.number_field :match_point %>
+    <%= hidden_field_tag :match_id, @current_match.id.to_s, :class => 'vote_input' %>
   </div>
 
   <div class="field">
-    <%= f.label :player_points %>
-    <%= f.text_field :player_points %>
-  </div>
-
-  <div class="field">
-    <%= f.hidden_field :match_id, :value => @current_match.id %>
-  </div>
-
-  <div class="field">
-    <%= f.hidden_field :player_id, :value => current_player.id %>
+    <%= hidden_field_tag :player_id, current_player.id.to_s, :class => 'vote_input' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag "Submit", :class => 'submit' %>
   </div>
-<% end %>
+
+<script type="text/javascript">
+  var player_points = {}
+  var players = <%= raw(@players.to_json) %>
+  var data_missing = false
+
+  // $('.vote_input').change(function() {
+  //   var $nonempty = $('.vote_input').filter(function() {
+  //     return this.value = ''
+  //   });
+  //   console.log($nonempty)
+  //   if ($nonempty.length > 0) {
+  //     alert('empty')
+  //   }
+  //   else {
+  //     $('.submit').prop("disabled", false);
+  //   }
+  // });
+
+  $(".submit").on("click", function() {
+    $('.vote_input').each(function( index ) {
+      if(!$(this).val()) {
+        data_missing = true
+      }
+    })
+    if (!data_missing) {
+      $('.players').each(function( index ) {
+        var player_id = $(this).data().id
+        var attr_type = $(this).data().type
+        var val = $(this).val()
+        if(player_points.hasOwnProperty(player_id)) {
+          player_points[player_id][attr_type] = val
+        }
+        else {
+          player_points[player_id] = {}
+          player_points[player_id][attr_type] = val
+        }
+      });
+      var vote_data = {
+        "vote" : {
+          "match_point": $('#match_point').val(),
+          "match_id": $('#match_id').val(),
+          "player_id": $('#player_id').val(),
+          "player_points": player_points
+        }
+      };
+      console.log(JSON.stringify(vote_data))
+      $.ajax({
+        url: "/votes",
+        type: "POST",
+        dataType: "json",
+        data: vote_data,
+        success: function(resp){ },
+        error: function(err) {
+          console.log(err)
+        }
+      });
+    }
+    else {
+      console.log('data missing')
+    }
+  });
+</script>
