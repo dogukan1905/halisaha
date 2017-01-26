@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     @current_match = Match.last
   end
 
+  def is_admin?
+    player_signed_in? ? current_player.is_admin : false
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_in) do |user_params|
       user_params.permit(:username, :email)

@@ -1,1 +1,10 @@
-<%= @player.firstname %> <%= @player.lastname %>
+<div>
+	<% if (@player.firstname || @player.lastname) %>
+	    <%= @player.firstname %> <%= @player.lastname %>
+	<% else %>
+		Unknown Talent
+	<% end %>
+</div>
+<div>
+	<%= image_tag @player.avatar.url %>
+</div>

@@ -4,6 +4,8 @@ class Vote < ApplicationRecord
   has_many :player, through: :votings
   accepts_nested_attributes_for :votings
 
+  validates_numericality_of :match_point, :less_than_or_equal_to => 10
+
   before_create :update_user_attrs
 
   private
@@ -21,6 +23,10 @@ class Vote < ApplicationRecord
     end
 
     def calculate_new_scores(previous_score, total_count, new_vote)
-      new_score = ((previous_score * total_count) + new_vote.to_f)/(total_count + 1)
+      new_score = ((previous_score * total_count) + calcuate_score_with_match_point(new_vote.to_f))/(total_count + 1)
+    end
+
+    def calcuate_score_with_match_point(vote)
+      weighted_score = vote*(0.9 + self.match_point/100)
     end
 end

@@ -1,6 +1,6 @@
   <div class="field">
     <%= label_tag :match_point %>
-    <%= number_field_tag :match_point %>
+    <%= number_field_tag :match_point, nil, max: 10 %>
   </div>
   
   <%= render 'player_fields'%>
